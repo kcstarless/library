@@ -1,27 +1,60 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+class Library {
+    static myLibrary = [];
 
-    this.toggleReadStatus = function() {
+    static addBook(book) {
+        this.myLibrary.push(book);
+    }
+
+    static removeBook(index) {
+        this.myLibrary.splice(index, 1);
+    }
+
+    static getBooks() {
+        return this.myLibrary;
+    }
+}
+
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    toggleReadStatus() {
         this.read = !this.read;
     }
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    const newBook = new Book(title, author, pages, read);
-    myLibrary.push(newBook);
-}
-
 // Example book
-addBookToLibrary('Dune', 'Frank Herbert', 453, false);
-addBookToLibrary('1984', 'George Orwell', 328, true);
-addBookToLibrary('To Kill a Mockingbird', 'Harper Lee', 281, false);
+book1 = new Book('Dune', 'Frank Herbert', 453, false);
+Library.addBook(book1);
 
-console.log(myLibrary);
+Library.addBook(new Book('1984', 'George Orwell', 328, true));
+Library.addBook(new Book('To Kill a Mockingbird', 'Harper Lee', 281, false));
+
+// function Book(title, author, pages, read) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.read = read;
+
+//     this.toggleReadStatus = function() {
+//         this.read = !this.read;
+//     }
+// }
+
+// function addBookToLibrary(title, author, pages, read) {
+//     const newBook = new Book(title, author, pages, read);
+//     myLibrary.push(newBook);
+// }
+
+// Library.addBookToLibrary('Dune', 'Frank Herbert', 453, false);
+// addBookToLibrary('1984', 'George Orwell', 328, true);
+// addBookToLibrary('To Kill a Mockingbird', 'Harper Lee', 281, false);
 
 // Each book in myLibrary and it's attributes 
 function displayBooks(libraryBooks) {
@@ -38,11 +71,11 @@ function displayBooks(libraryBooks) {
     `).join('');
 }
 
+// Toggles read status
 function toggleReadStatusAndUpdate(index, isChecked) {
-    myLibrary[index].toggleReadStatus();
-    displayBooks(myLibrary);
+    Library.myLibrary[index].toggleReadStatus();
+    displayBooks(Library.getBooks());
 }
-
 
 // Toggles new book form
 const openDialogButton = document.getElementById('openDialog');
@@ -64,8 +97,6 @@ function addBook(event) {
     const author = document.getElementById('author').value;
     const pages = parseInt(document.getElementById('pages').value);
     const read = document.getElementById('read').checked;
-
-      console.log('Form values:', title, author, pages, read);
     
     if (!title || !author || !pages) {
         console.log('Condition met:', !title, !author, isNaN(pages));
@@ -73,9 +104,9 @@ function addBook(event) {
         return;
     }
 
-    addBookToLibrary(title, author, pages, read);
+    Library.addBook(new Book(title, author, pages, read));
 
-    displayBooks(myLibrary);
+    displayBooks(Library.getBooks());
     // clear form
     document.getElementById('addbook_form').reset();
 
@@ -85,9 +116,9 @@ function addBook(event) {
 
 // Delete book from library
 function deleteBook(index){
-    myLibrary.splice(index, 1);
-    displayBooks(myLibrary);
+    Library.removeBook(index)
+    displayBooks(Library.getBooks());
 }
 
 // Display all books in the library
-displayBooks(myLibrary);
+displayBooks(Library.getBooks());
