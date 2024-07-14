@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script defer src="script/javascript.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: Library</title>
+</head>
+<body>
+    <h3>List of books</h3>
+    <div id="book-list"></div>
+    <br>
+
+    <button id="openDialog">New Book</button>
+
+    <dialog id="addBookDialog">
+        <h3>Add New Book</h3>
+        <form id="addbook_form" onsubmit="addBook(event)">
+                <label for="title">Title:</label>
+                <input type="text" id="title"><br><br>
+
+                <label for="author">Author:</label>
+                <input type="text" id="author"><br><br>
+
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages"><br><br>
+
+                <label for="read">Read:</label>
+                <input type="checkbox" id="read"><br><br>
+
+                <button type="submit">Add Book</button>
+                <button type="button" onclick="closeDialog()">Cancel</button>
+        </form>
+    </dialog>      
+</body>
+</html>
